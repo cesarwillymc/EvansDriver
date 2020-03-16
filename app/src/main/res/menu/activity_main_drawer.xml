@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
+        <!-- se crea el icono para acceder al fragment de mapa -->
+
+        <item
+
+            android:id="@+id/nav_travel"
+            android:icon="@android:drawable/ic_dialog_map"
+
+            android:title="!Buscar pasajeros¡" />
+        <item
+            android:id="@+id/nav_cuenta"
+            android:icon="@drawable/perfil"
+            android:title="Mi perfil" />
+        <item
+            android:id="@+id/nav_ingresos"
+            android:icon="@drawable/ingresos"
+            android:title="Historial de ganancias" />
+        <item
+            android:id="@+id/nav_banca"
+            android:icon="@drawable/iconbanca"
+            android:title="Recargar Evans" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Configuración importante" />
+        <item
+            android:id="@+id/nav_help"
+            android:title="Mis documentos"
+            android:icon="@drawable/iconayuda"
+            />
+        <item
+            android:id="@+id/nav_notificacion"
+            app:actionViewClass="android.widget.TextView"
+            android:icon="@drawable/ic_notifications_active_black_24dp"
+            android:title="Notificaciones"
+            />
+    </group>
+
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="none">
+            <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_cloud_upload_black_24dp"
+            android:title="Mi carro" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_directions_run_black_24dp"
+                android:title="Cerrar sesión" />
+                <item
+                android:id="@+id/nav_exit"
+                android:icon="@drawable/exit"
+                android:title="Salir" />
+
+    </group>
+
+</menu>

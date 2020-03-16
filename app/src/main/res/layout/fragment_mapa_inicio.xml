@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.mapaInicio">
+
+
+    <com.mapbox.mapboxsdk.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        mapbox:mapbox_cameraTargetLat="-15.834"
+        mapbox:mapbox_cameraTargetLng="-70.019"
+        mapbox:mapbox_cameraZoomMax="18"
+        mapbox:mapbox_cameraZoomMin="10"
+        mapbox:mapbox_cameraZoom="14" />
+
+
+    <LinearLayout
+        android:id="@+id/dialog_no_connect_internet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FF0000"
+        android:weightSum="10"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:visibility="gone"
+        android:layout_gravity="top">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_signal_cellular_connected_no_internet_0_bar_black_24dp"
+            android:layout_weight="2"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_marginEnd="3dp"
+            android:textSize="18dp"
+            android:text="NO ESTAS CONECTADO A INTERNET!!!"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="bottom">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            >
+            <ImageButton
+                android:id="@+id/startButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ic_directions_car_black_24dp"
+                android:visibility="gone"
+                android:layout_gravity="left"
+                android:layout_marginHorizontal="15dp"
+                />
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/relLayout1"
+                android:layout_gravity="right"
+                android:layout_marginRight="8dp"
+                android:id="@+id/mapa_icon_gps"
+                android:src="@drawable/icon_gps"/>
+        </FrameLayout>
+
+        <include android:id="@+id/fmi_dialog_estado"
+            layout="@layout/dialog_estado"
+            android:layout_gravity="bottom"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:visibility="visible"/>
+        <include android:id="@+id/dvav_vista_accept"
+            layout="@layout/dialog_view_aceptar_viaje"
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+        <include android:id="@+id/fmi_dialog_aceppted"
+            layout="@layout/dialog_acept"
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+    </LinearLayout>
+
+
+
+    <!--
+
+ <Button
+         android:id="@+id/mapa_define_viaje"
+         android:layout_width="300dp"
+         android:layout_height="40dp"
+         android:layout_gravity="bottom|center"
+         android:text="Define tu viaje"
+         android:textColor="@color/colorWhite"
+         android:background="@color/colorPrimary"
+         android:layout_marginBottom="40sp"/>
+
+
+             -->
+
+
+</FrameLayout>
+
+

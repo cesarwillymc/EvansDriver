@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    tools:context=".fragments.fragment_pasos_requeridos.f_pasos_requeridos">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/ffpr_titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_margin="10dp"
+                android:text="Toma una foto de tu certificado de antecedentes Penales"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#000"
+                android:layout_margin="20dp"
+                android:layout_gravity="center">
+                <ImageView
+                    android:id="@+id/ffpr_imv_take_photo"
+                    android:layout_width="200dp"
+                    android:layout_height="450dp"
+                    android:src="@drawable/camara"
+                    android:layout_gravity="center"/>
+                <ProgressBar
+                    android:id="@+id/fpr_progress"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/ffpr_btn_subit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subir Foto"
+                android:background="@color/plomoDark"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:layout_gravity="bottom"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</FrameLayout>
