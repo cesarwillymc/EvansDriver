@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.ArrayMap;
 import android.view.LayoutInflater;
@@ -20,8 +19,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.evans.technologies.conductor.R;
-import com.evans.technologies.conductor.Utils.Adapters.Recycler_tipo_socio;
-import com.evans.technologies.conductor.Utils.ComunicacionesRealTime.updateListenerNotifications;
+import com.evans.technologies.conductor.utils.Adapters.Recycler_tipo_socio;
+import com.evans.technologies.conductor.utils.ComunicacionesRealTime.updateListenerNotifications;
 import com.evans.technologies.conductor.fragments.fragment_pasos_requeridos.f_pasos_requeridos;
 
 import java.util.ArrayList;
@@ -30,18 +29,16 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.evans.technologies.conductor.Utils.UtilsKt.datosLlenadossoatetc;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getUserName;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getaccountActivate;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getcriminalRecodCert;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getdriverLicense;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getpoliceRecordCert;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getpropertyCardBack;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getpropertyCardForward;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getsoat;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setClaseActual;
-import static com.evans.technologies.conductor.Utils.UtilsKt.toastLong;
-import static com.evans.technologies.conductor.Utils.constantes.AppConstants.SEND_CLAVE_ADAPTER_DATOS_REQUERIDOS;
+import static com.evans.technologies.conductor.utils.UtilsKt.datosLlenadossoatetc;
+import static com.evans.technologies.conductor.utils.UtilsKt.getUserName;
+import static com.evans.technologies.conductor.utils.UtilsKt.getaccountActivate;
+import static com.evans.technologies.conductor.utils.UtilsKt.getdriverLicense;
+import static com.evans.technologies.conductor.utils.UtilsKt.getpropertyCardBack;
+import static com.evans.technologies.conductor.utils.UtilsKt.getpropertyCardForward;
+import static com.evans.technologies.conductor.utils.UtilsKt.getsoat;
+import static com.evans.technologies.conductor.utils.UtilsKt.setClaseActual;
+import static com.evans.technologies.conductor.utils.UtilsKt.toastLong;
+import static com.evans.technologies.conductor.utils.constantes.AppConstants.SEND_CLAVE_ADAPTER_DATOS_REQUERIDOS;
 
 
 /**

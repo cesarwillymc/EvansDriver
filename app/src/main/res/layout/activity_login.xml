@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
-    tools:context=".Activities.LoginActivity">
+    tools:context=".ui.auth.signIn.view.LoginActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -81,7 +81,7 @@
             android:text="¿olvidaste tu contraseña?" />
     </LinearLayout>
     <include
-        android:id="@+id/login_progressbar"
+        android:id="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 

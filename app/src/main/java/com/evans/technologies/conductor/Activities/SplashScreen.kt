@@ -11,8 +11,9 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import com.evans.technologies.conductor.R
-import com.evans.technologies.conductor.Utils.getUserEmail
-import com.evans.technologies.conductor.Utils.getUserPassword
+import com.evans.technologies.conductor.ui.auth.signIn.view.LoginActivity
+import com.evans.technologies.conductor.utils.getUserEmail
+import com.evans.technologies.conductor.utils.getUserPassword
 
 class SplashScreen : AppCompatActivity() {
 

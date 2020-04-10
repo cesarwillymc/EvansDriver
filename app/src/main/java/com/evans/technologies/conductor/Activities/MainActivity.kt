@@ -19,8 +19,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.MenuItemCompat
@@ -29,23 +29,21 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.evans.technologies.conductor.R
-import com.evans.technologies.conductor.Retrofit.RetrofitClient
-import com.evans.technologies.conductor.Utils.ComunicacionesRealTime.ComunicateFrag
-import com.evans.technologies.conductor.Utils.ComunicacionesRealTime.updateListenerNotifications
-import com.evans.technologies.conductor.Utils.*
+import com.evans.technologies.conductor.utils.ComunicacionesRealTime.ComunicateFrag
+import com.evans.technologies.conductor.utils.ComunicacionesRealTime.updateListenerNotifications
+import com.evans.technologies.conductor.utils.*
 
-import com.evans.technologies.conductor.Utils.miui.canDrawOverlayViews
-import com.evans.technologies.conductor.Utils.miui.dialogEmergente
-import com.evans.technologies.conductor.Utils.miui.isXiaomi
+import com.evans.technologies.conductor.utils.miui.canDrawOverlayViews
+import com.evans.technologies.conductor.utils.miui.dialogEmergente
+import com.evans.technologies.conductor.utils.miui.isXiaomi
 import com.evans.technologies.conductor.fragments.TusViajesGratisFragment
 import com.evans.technologies.conductor.fragments.fragment_notificaciones.fragment_notificaciones_rv
 import com.evans.technologies.conductor.fragments.mapaInicio
 import com.evans.technologies.conductor.fragments.pasos_requeridos
 import com.evans.technologies.conductor.fragments.registrarDatosFragment
-import com.evans.technologies.conductor.model.Driver
-import com.evans.technologies.conductor.model.RegistroInicioSesion
 import com.evans.technologies.conductor.model.config
 import com.evans.technologies.conductor.model.infoDriver
+import com.evans.technologies.conductor.ui.auth.signIn.view.LoginActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -56,9 +54,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.io.File
 
 class MainActivity : AppCompatActivity(),
@@ -206,28 +201,28 @@ class MainActivity : AppCompatActivity(),
                 switchon.isChecked=true
                 crear_dialog_cancelado()
             }else{
-                val call = RetrofitClient.getInstance()
-                    .api.switchStatus(getToken(prefs)!!, getDriverId_Prefs(prefs)!!, isChecked)
-                call.enqueue(object : Callback<Driver> {
-                    override fun onResponse(call: Call<Driver>, response: Response<Driver>) {
-                        if (response.isSuccessful) {
-                            try {
-                                comunicateFrag.updatefrag(isChecked)
-                            }catch (E:Exception){
-                                Log.e("entra aca",E.message)
-                            }
-                            Log.e("cambio", "exitoso")
-                        }else{
-                            switchon.isChecked= getStatusSwitch(dataDriver)
-
-                        }
-                        Log.e("cambio", "" + response.code())
-                    }
-
-                    override fun onFailure(call: Call<Driver>, t: Throwable) {
-                        switchon.isChecked= getStatusSwitch(dataDriver)
-                    }
-                })
+//                val call = RetrofitClient.instance
+//                    .api.switchStatus(getToken(prefs)!!, getDriverId_Prefs(prefs)!!, isChecked)
+//                call.enqueue(object : Callback<Driver> {
+//                    override fun onResponse(call: Call<Driver>, response: Response<Driver>) {
+//                        if (response.isSuccessful) {
+//                            try {
+//                                comunicateFrag.updatefrag(isChecked)
+//                            }catch (E:Exception){
+//                                Log.e("entra aca",E.message)
+//                            }
+//                            Log.e("cambio", "exitoso")
+//                        }else{
+//                            switchon.isChecked= getStatusSwitch(dataDriver)
+//
+//                        }
+//                        Log.e("cambio", "" + response.code())
+//                    }
+//
+//                    override fun onFailure(call: Call<Driver>, t: Throwable) {
+//                        switchon.isChecked= getStatusSwitch(dataDriver)
+//                    }
+//                })
 
             }
 
@@ -343,24 +338,25 @@ class MainActivity : AppCompatActivity(),
 
 
     private fun tienevoucher(menu: Menu) {
-        var tienevoucherfun=RetrofitClient.getInstance().api.tiene_voucher(getDriverId_Prefs(prefs)!!)
-        tienevoucherfun.enqueue(object : Callback<Driver>{
-            override fun onResponse(call: Call<Driver>, response: Response<Driver>) {
-                if(response.isSuccessful){
-                    if(response.body()!=null){
-                        setEnvioVocher(prefs,response.body()!!.estadoimg?:false)
-                        setVoucherAceptado(prefs,response.body()!!.acceptimg?:false)
-                        if (response.body()!!.estadoimg?:false){
-                            menu.findItem(R.id.nav_banca).setEnabled(false)
-                        }
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<Driver>, t: Throwable) {
-             }
-
-        })
+//        var tienevoucherfun=
+//            RetrofitClient.instance.api.tiene_voucher(getDriverId_Prefs(prefs)!!)
+//        tienevoucherfun.enqueue(object : Callback<Driver>{
+//            override fun onResponse(call: Call<Driver>, response: Response<Driver>) {
+//                if(response.isSuccessful){
+//                    if(response.body()!=null){
+//                        setEnvioVocher(prefs,response.body()!!.estadoimg?:false)
+//                        setVoucherAceptado(prefs,response.body()!!.acceptimg?:false)
+//                        if (response.body()!!.estadoimg?:false){
+//                            menu.findItem(R.id.nav_banca).setEnabled(false)
+//                        }
+//                    }
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<Driver>, t: Throwable) {
+//             }
+//
+//        })
     }
     fun initializeCountDrawer(notificacion: Boolean){
 
@@ -452,33 +448,34 @@ class MainActivity : AppCompatActivity(),
 
 
     private fun comprobarAcountActivate() {
-        var acountActivate=RetrofitClient.getInstance().api.callAcountActivate(getDriverId_Prefs(prefs)!!)
-        acountActivate.enqueue(object : Callback<Driver> {
-            override fun onFailure(call: Call<Driver>, t: Throwable) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onResponse(call: Call<Driver>, response: Response<Driver>) {
-                if (response.isSuccessful){
-                    if (response.body()!!.accountActivate) {
-                        setaccountActivate(prefs,response.body()!!.accountActivate)
-                        switchon.visibility= View.VISIBLE
-                        setEstadoViews(dataDriver,1)
-                    }else{
-                        switchon.visibility= View.GONE
-                    }
-                }
-
-            }
-
-        })
+//        var acountActivate=
+//            RetrofitClient.instance.api.callAcountActivate(getDriverId_Prefs(prefs)!!)
+//        acountActivate.enqueue(object : Callback<Driver> {
+//            override fun onFailure(call: Call<Driver>, t: Throwable) {
+//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//            }
+//
+//            override fun onResponse(call: Call<Driver>, response: Response<Driver>) {
+//                if (response.isSuccessful){
+//                    if (response.body()!!.accountActivate) {
+//                        setaccountActivate(prefs,response.body()!!.accountActivate)
+//                        switchon.visibility= View.VISIBLE
+//                        setEstadoViews(dataDriver,1)
+//                    }else{
+//                        switchon.visibility= View.GONE
+//                    }
+//                }
+//
+//            }
+//
+//        })
     }
 
     private fun comprobarRegistroIniciodeSesion() {
         Log.e("Main","comprobarRegistroIniciodeSesion"+ datosLlenadossoatetc(prefs))
         Log.e("ErrorLogin", datosLlenadossoatetc(prefs).toString()+"main")
 
-        var llamada: Call<RegistroInicioSesion> = RetrofitClient.getInstance().api
+      /*  var llamada: Call<RegistroInicioSesion> = RetrofitClient.instance.api
             .getDataInicioSesion(getDriverId_Prefs(prefs)!!)
         llamada.enqueue(object : Callback<RegistroInicioSesion> {
             override fun onFailure(call: Call<RegistroInicioSesion>, t: Throwable) {
@@ -498,7 +495,7 @@ class MainActivity : AppCompatActivity(),
                 }
             }
 
-        })
+        })*/
 
         // }
         // Funcion para llenado de datos
@@ -523,10 +520,10 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun crear_dialog_cancelado() {
-        val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
+       /* val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
-                    val comando = RetrofitClient.getInstance().api.puStatusTrip(
+                    val comando = RetrofitClient.instance.api.puStatusTrip(
                         getViajeId(dataDriver)!!,
                         true,
                         false,
@@ -536,7 +533,7 @@ class MainActivity : AppCompatActivity(),
                     comando.enqueue(object : Callback<Driver> {
                         override fun onResponse(call: Call<Driver>, response: Response<Driver>) {
                             if (response.isSuccessful) {
-                                val llamada = RetrofitClient.getInstance().api.driverTOuser(
+                                val llamada = RetrofitClient.instance.api.driverTOuser(
                                     getDriverId_Prefs(prefs)!!,
                                     getUserId(dataDriver)!!,
                                     "Viaje Cancelado",
@@ -584,7 +581,7 @@ class MainActivity : AppCompatActivity(),
         val builder = AlertDialog.Builder(this)
         builder.setMessage("¿Esta seguro de querer cancelar el viaje?")
             .setPositiveButton("Si", dialogClickListener)
-            .setNegativeButton("No", dialogClickListener).show()
+            .setNegativeButton("No", dialogClickListener).show()*/
     }
 
 
@@ -746,8 +743,8 @@ class MainActivity : AppCompatActivity(),
         editor2.apply()
     }
     private fun comprobarStatusTrip() {
-        if (!(getViajeId(dataDriver).equals("nulo"))){
-            var statusTrip=RetrofitClient.getInstance().api.getStatusTrip(getViajeId(dataDriver)!!)
+        /*if (!(getViajeId(dataDriver).equals("nulo"))){
+            var statusTrip= RetrofitClient.instance.api.getStatusTrip(getViajeId(dataDriver)!!)
             statusTrip.enqueue(object : Callback<infoDriver> {
                 override fun onFailure(call: Call<infoDriver>, t: Throwable) {
                     Log.e("error", t.message)
@@ -766,11 +763,11 @@ class MainActivity : AppCompatActivity(),
                 }
 
             })
-        }
+        }*/
 
     }
     private fun removerData(){
-        val call = RetrofitClient.getInstance()
+        /*val call = RetrofitClient.instance
             .api.switchStatus(getToken(prefs)!!,  getDriverId_Prefs(prefs)!!, false)
 
 
@@ -786,7 +783,7 @@ class MainActivity : AppCompatActivity(),
             override fun onFailure(call: Call<Driver>, t: Throwable) {
                 Log.e("datos enviados","error ")
             }
-        })
+        })*/
 
     }
     private fun setInfoUser(headerView: View) {
@@ -861,8 +858,13 @@ class MainActivity : AppCompatActivity(),
             }
             R.id.nav_header_image_view_profile->{
                 val manager = supportFragmentManager
-                manager.beginTransaction().replace(R.id.main_layout_change_fragment, TusViajesGratisFragment()).commit()
+                if((getTieneInfo(prefs)!!)){
+                    manager.beginTransaction().replace(R.id.main_layout_change_fragment, TusViajesGratisFragment()).commit()
+                }else{
+                    manager.beginTransaction().replace(R.id.main_layout_change_fragment, registrarDatosFragment()).commit()
+                }
                 drawer_layout.closeDrawer(GravityCompat.START)
+
             }
 
         }

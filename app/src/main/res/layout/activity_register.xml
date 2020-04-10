@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.RegisterActivity">
+    tools:context=".ui.auth.signUp.view.RegisterActivity">
 
     <ImageView
         android:id="@+id/register_image_view_atras"
@@ -243,6 +243,7 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:textSize="18sp"
+                    android:autoLink="phone"
                     android:textStyle="bold"/>
 
             </LinearLayout>

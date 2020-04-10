@@ -2,6 +2,7 @@ package com.evans.technologies.conductor.fragments;
 
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,7 +14,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -34,7 +34,7 @@ import android.widget.Toast;
 
 import com.evans.technologies.conductor.Activities.MainActivity;
 import com.evans.technologies.conductor.R;
-import com.evans.technologies.conductor.Retrofit.RetrofitClient;
+import com.evans.technologies.conductor.data.network.service.auth.ClienteRetrofit;
 import com.evans.technologies.conductor.model.Driver;
 
 import java.io.File;
@@ -49,15 +49,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
-import static com.evans.technologies.conductor.Utils.UtilsKt.detectar_formato;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getDriverId_Prefs;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getImageRotate;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getPath;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setClaseActual;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setRutaImagen;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setTieneInfo;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setVehiculoInfo;
-import static com.evans.technologies.conductor.Utils.UtilsKt.toastLong;
+import static com.evans.technologies.conductor.utils.UtilsKt.detectar_formato;
+import static com.evans.technologies.conductor.utils.UtilsKt.getDriverId_Prefs;
+import static com.evans.technologies.conductor.utils.UtilsKt.getImageRotate;
+import static com.evans.technologies.conductor.utils.UtilsKt.getPath;
+import static com.evans.technologies.conductor.utils.UtilsKt.setClaseActual;
+import static com.evans.technologies.conductor.utils.UtilsKt.setRutaImagen;
+import static com.evans.technologies.conductor.utils.UtilsKt.setTieneInfo;
+import static com.evans.technologies.conductor.utils.UtilsKt.setVehiculoInfo;
+import static com.evans.technologies.conductor.utils.UtilsKt.toastLong;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -243,11 +243,13 @@ public class registrarDatosFragment extends Fragment implements View.OnClickList
         progressDoalog.setMax(100);
         progressDoalog.setMessage("Cargando...");
         progressDoalog.setTitle("Subiendo Datos");
+        progressDoalog.setCancelable(false);
         progressDoalog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         // show it
         progressDoalog.show();
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "profile");
-        Call<Driver> subir_imagen = RetrofitClient.getInstance().getApi()
+        Log.e("datos ",getDriverId_Prefs(prefs));
+        Call<Driver> subir_imagen = ClienteRetrofit.getInstance().getApi()
                 .guardarImagenes(getDriverId_Prefs(prefs),body,name);
         subir_imagen.enqueue(new Callback<Driver>() {
             @Override
@@ -260,6 +262,7 @@ public class registrarDatosFragment extends Fragment implements View.OnClickList
                 }else {
                     //  progressBar.setVisibility(View.GONE);
                     Log.e("subir_imagen",response.code()+"");
+                    toastLong(getActivity(),"Error al subir la foto, "+response.message());
                     register_button_registrar_datos_adicionales.setEnabled(true);
                 }
                 progressDoalog.dismiss();
@@ -269,16 +272,18 @@ public class registrarDatosFragment extends Fragment implements View.OnClickList
             public void onFailure(Call<Driver> call, Throwable t) {
                 register_button_registrar_datos_adicionales.setEnabled(true);
                 Log.e("subir_imagen",t.getMessage());
+                toastLong(getActivity(),"La conexion esta demorando, revisa tu conexion a internet");
                 // progressBar.setVisibility(View.GONE);
                 progressDoalog.dismiss();
             }
+
         });
 
 
     }
 
     public void subir_info(){
-        Call<Driver> llamada= RetrofitClient.getInstance().getApi()
+        Call<Driver> llamada= ClienteRetrofit.getInstance().getApi()
                 .enviarDatosAdicionales(getDriverId_Prefs(prefs),brandCar,modelCar,colorCar,yearCar,licenseCar,licenseCategory);
         llamada.enqueue(new Callback<Driver>() {
             @Override
@@ -313,7 +318,7 @@ public class registrarDatosFragment extends Fragment implements View.OnClickList
             @Override
             public void onFailure(Call<Driver> call, Throwable t) {
                 //progressBar.setVisibility(View.GONE);
-                toastLong(getActivity(),"Error con la Base de datos");
+                toastLong(getActivity(),"Revise su conexion a internet");
                 register_button_registrar_datos_adicionales.setEnabled(true);
             }
         });

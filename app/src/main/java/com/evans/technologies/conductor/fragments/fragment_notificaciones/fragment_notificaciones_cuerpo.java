@@ -16,8 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.evans.technologies.conductor.R;
-import com.evans.technologies.conductor.Retrofit.RetrofitClient;
-import com.evans.technologies.conductor.fragments.fragment_recargar_evans;
+import com.evans.technologies.conductor.data.network.service.auth.ClienteRetrofit;
 import com.evans.technologies.conductor.model.infoDriver;
 
 import butterknife.BindView;
@@ -26,10 +25,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.evans.technologies.conductor.Utils.UtilsKt.getDriverId_Prefs;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setClaseActual;
-import static com.evans.technologies.conductor.Utils.UtilsKt.toastLong;
-import static com.evans.technologies.conductor.Utils.UtilsKt.toastShort;
+import static com.evans.technologies.conductor.utils.UtilsKt.setClaseActual;
+import static com.evans.technologies.conductor.utils.UtilsKt.toastLong;
+import static com.evans.technologies.conductor.utils.UtilsKt.toastShort;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,7 +78,7 @@ public class fragment_notificaciones_cuerpo extends Fragment implements  View.On
 
 
     private void deleteNotify() {
-        Call<infoDriver> deleteNotify= RetrofitClient.getInstance().getApi().deleteNotify(id.trim());
+        Call<infoDriver> deleteNotify= ClienteRetrofit.getInstance().getApi().deleteNotify(id.trim());
         deleteNotify.enqueue(new Callback<infoDriver>() {
             @Override
             public void onResponse(Call<infoDriver> call, Response<infoDriver> response) {

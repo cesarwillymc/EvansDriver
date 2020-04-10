@@ -17,7 +17,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.evans.technologies.conductor.R;
-import com.evans.technologies.conductor.Retrofit.RetrofitClient;
+import com.evans.technologies.conductor.data.network.service.auth.ClienteRetrofit;
 import com.evans.technologies.conductor.model.Driver;
 
 import butterknife.BindView;
@@ -26,8 +26,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.evans.technologies.conductor.Utils.UtilsKt.setIDrecuperar;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setNavFragment;
+import static com.evans.technologies.conductor.utils.UtilsKt.setIDrecuperar;
+import static com.evans.technologies.conductor.utils.UtilsKt.setNavFragment;
 import static org.jetbrains.anko.ToastsKt.toast;
 
 /**
@@ -68,7 +68,7 @@ public class correo extends Fragment {
                 e2=email2.getText().toString().trim();
                 if (comprobarcampos()){
                     progressBar.setVisibility(View.GONE);
-                    Call<Driver> sendCorreo= RetrofitClient.getInstance().getApi().sendCorreo_recuperar(e1);
+                    Call<Driver> sendCorreo= ClienteRetrofit.getInstance().getApi().sendCorreo_recuperar(e1);
                     sendCorreo.enqueue(new Callback<Driver>() {
                         @Override
                         public void onResponse(Call<Driver> call, Response<Driver> response) {

@@ -14,10 +14,11 @@ import android.view.MenuItem;
 
 import com.evans.technologies.conductor.R;
 import com.evans.technologies.conductor.fragments.change_password.correo;
+import com.evans.technologies.conductor.ui.auth.signIn.view.LoginActivity;
 
 import java.util.Objects;
 
-import static com.evans.technologies.conductor.Utils.UtilsKt.getBeforeNavFragment;
+import static com.evans.technologies.conductor.utils.UtilsKt.getBeforeNavFragment;
 
 public class recuperar_account extends AppCompatActivity {
     SharedPreferences navFragment;
@@ -52,7 +53,7 @@ public class recuperar_account extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             if (getBeforeNavFragment(navFragment)==null){
-                Intent intent = new Intent(this,LoginActivity.class);
+                Intent intent = new Intent(this, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);

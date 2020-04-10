@@ -3,10 +3,7 @@ package com.evans.technologies.conductor.fragments;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,28 +14,19 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.evans.technologies.conductor.Activities.MainActivity;
 import com.evans.technologies.conductor.R;
-import com.evans.technologies.conductor.Utils.Adapters.adapter_rv_chat;
-import com.evans.technologies.conductor.Utils.ComunicacionesRealTime.ComunicateFrag;
-import com.evans.technologies.conductor.Utils.ComunicacionesRealTime.OnclickItemListener;
+import com.evans.technologies.conductor.utils.Adapters.adapter_rv_chat;
+import com.evans.technologies.conductor.utils.ComunicacionesRealTime.ComunicateFrag;
+import com.evans.technologies.conductor.utils.ComunicacionesRealTime.OnclickItemListener;
 import com.evans.technologies.conductor.model.chats;
-import com.evans.technologies.conductor.model.notification.data;
 import com.evans.technologies.conductor.model.notification.notification;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.gson.Gson;
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,14 +38,10 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.evans.technologies.conductor.Utils.UtilsKt.getChatJson;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getDriverId_Prefs;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getLlaveChat;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getUserName;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setClaseActual;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setEstadoViews;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setStatusSwitch;
-import static com.evans.technologies.conductor.Utils.UtilsKt.toastLong;
+import static com.evans.technologies.conductor.utils.UtilsKt.getDriverId_Prefs;
+import static com.evans.technologies.conductor.utils.UtilsKt.getUserName;
+import static com.evans.technologies.conductor.utils.UtilsKt.setClaseActual;
+import static com.evans.technologies.conductor.utils.UtilsKt.toastLong;
 
 
 /**

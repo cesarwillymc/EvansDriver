@@ -16,9 +16,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import com.evans.technologies.conductor.Activities.LoginActivity;
+import com.evans.technologies.conductor.ui.auth.signIn.view.LoginActivity;
 import com.evans.technologies.conductor.R;
-import com.evans.technologies.conductor.Retrofit.RetrofitClient;
+import com.evans.technologies.conductor.data.network.service.auth.ClienteRetrofit;
 import com.evans.technologies.conductor.model.Driver;
 
 import butterknife.BindView;
@@ -27,9 +27,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.evans.technologies.conductor.Utils.UtilsKt.getIDrecuperar;
-import static com.evans.technologies.conductor.Utils.UtilsKt.gettokenrecuperar;
-import static com.evans.technologies.conductor.Utils.UtilsKt.toastLong;
+import static com.evans.technologies.conductor.utils.UtilsKt.getIDrecuperar;
+import static com.evans.technologies.conductor.utils.UtilsKt.gettokenrecuperar;
+import static com.evans.technologies.conductor.utils.UtilsKt.toastLong;
 import static org.jetbrains.anko.ToastsKt.toast;
 
 /**
@@ -67,7 +67,7 @@ public class changepassword extends Fragment {
                 p2=pw2.getText().toString().trim();
                 if (comprobarcampos()){
                     progressBar.setVisibility(View.GONE);
-                    Call<Driver> sendCorreo= RetrofitClient.getInstance().getApi().sendContraseña_recuperar(getIDrecuperar(navFragment),gettokenrecuperar(navFragment),p1);
+                    Call<Driver> sendCorreo= ClienteRetrofit.getInstance().getApi().sendContraseña_recuperar(getIDrecuperar(navFragment),gettokenrecuperar(navFragment),p1);
                     sendCorreo.enqueue(new Callback<Driver>() {
                         @Override
                         public void onResponse(Call<Driver> call, Response<Driver> response) {

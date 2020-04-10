@@ -2,6 +2,7 @@ package com.evans.technologies.conductor.fragments.fragment_pasos_requeridos;
 
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,7 +14,6 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -31,8 +31,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.evans.technologies.conductor.R;
-import com.evans.technologies.conductor.Retrofit.RetrofitClient;
-import com.evans.technologies.conductor.Utils.ComunicacionesRealTime.updateListenerNotifications;
+import com.evans.technologies.conductor.data.network.service.auth.ClienteRetrofit;
+import com.evans.technologies.conductor.utils.ComunicacionesRealTime.updateListenerNotifications;
 import com.evans.technologies.conductor.fragments.pasos_requeridos;
 import com.evans.technologies.conductor.model.Driver;
 
@@ -48,17 +48,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
-import static com.evans.technologies.conductor.Utils.UtilsKt.detectar_formato;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getDriverId_Prefs;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getImageRotate;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getPath;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setcriminalRecodCert;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setdriverLicense;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setpoliceRecordCert;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setpropertyCardBack;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setpropertyCardForward;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setsoat;
-import static com.evans.technologies.conductor.Utils.UtilsKt.toastLong;
+import static com.evans.technologies.conductor.utils.UtilsKt.detectar_formato;
+import static com.evans.technologies.conductor.utils.UtilsKt.getDriverId_Prefs;
+import static com.evans.technologies.conductor.utils.UtilsKt.getImageRotate;
+import static com.evans.technologies.conductor.utils.UtilsKt.getPath;
+import static com.evans.technologies.conductor.utils.UtilsKt.setcriminalRecodCert;
+import static com.evans.technologies.conductor.utils.UtilsKt.setdriverLicense;
+import static com.evans.technologies.conductor.utils.UtilsKt.setpoliceRecordCert;
+import static com.evans.technologies.conductor.utils.UtilsKt.setpropertyCardBack;
+import static com.evans.technologies.conductor.utils.UtilsKt.setpropertyCardForward;
+import static com.evans.technologies.conductor.utils.UtilsKt.setsoat;
+import static com.evans.technologies.conductor.utils.UtilsKt.toastLong;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -212,7 +212,7 @@ public class f_pasos_requeridos extends Fragment implements  View.OnClickListene
     }
     private void propertyCardBack() {
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "propertyCardBack");
-        Call<Driver> retrofit= RetrofitClient.getInstance().getApi()
+        Call<Driver> retrofit= ClienteRetrofit.getInstance().getApi()
                 .gdd_propertyCardBack(getDriverId_Prefs(prefs),guardarFotoEnArchivo("propertyCardBack"),name);
         retrofit.enqueue(new Callback<Driver>() {
             @Override
@@ -234,7 +234,7 @@ public class f_pasos_requeridos extends Fragment implements  View.OnClickListene
     }
     private void propertyCardForward() {
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "propertyCardForward");
-        Call<Driver> retrofit= RetrofitClient.getInstance().getApi()
+        Call<Driver> retrofit= ClienteRetrofit.getInstance().getApi()
                 .gdd_propertyCardForward(getDriverId_Prefs(prefs),guardarFotoEnArchivo("propertyCardForward"),name);
         retrofit.enqueue(new Callback<Driver>() {
             @Override
@@ -280,7 +280,7 @@ public class f_pasos_requeridos extends Fragment implements  View.OnClickListene
 
     private void Soat() {
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "SOAT");
-        Call<Driver> retrofit= RetrofitClient.getInstance().getApi()
+        Call<Driver> retrofit= ClienteRetrofit.getInstance().getApi()
                 .gdd_soat(getDriverId_Prefs(prefs),guardarFotoEnArchivo("SOAT"),name);
         retrofit.enqueue(new Callback<Driver>() {
             @Override
@@ -306,7 +306,7 @@ public class f_pasos_requeridos extends Fragment implements  View.OnClickListene
 
     private void cert_policial() {
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "policeRecordCert");
-        Call<Driver> retrofit= RetrofitClient.getInstance().getApi()
+        Call<Driver> retrofit= ClienteRetrofit.getInstance().getApi()
                 .gdd_policeRecordCert(getDriverId_Prefs(prefs),guardarFotoEnArchivo("policeRecordCert"),name);
         retrofit.enqueue(new Callback<Driver>() {
             @Override
@@ -332,7 +332,7 @@ public class f_pasos_requeridos extends Fragment implements  View.OnClickListene
 
     private void cert_penal() {
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "criminalRecodCert");
-        Call<Driver> retrofit= RetrofitClient.getInstance().getApi()
+        Call<Driver> retrofit= ClienteRetrofit.getInstance().getApi()
                 .gdd_criminalRecordCert(getDriverId_Prefs(prefs),guardarFotoEnArchivo("criminalRecodCert"),name);
         retrofit.enqueue(new Callback<Driver>() {
             @Override
@@ -358,7 +358,7 @@ public class f_pasos_requeridos extends Fragment implements  View.OnClickListene
 
     private void licencia() {
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "driverLicense");
-        Call<Driver> retrofit= RetrofitClient.getInstance().getApi()
+        Call<Driver> retrofit= ClienteRetrofit.getInstance().getApi()
                 .gdd_driverLicense(getDriverId_Prefs(prefs),guardarFotoEnArchivo("driverLicense"),name);
         retrofit.enqueue(new Callback<Driver>() {
             @Override

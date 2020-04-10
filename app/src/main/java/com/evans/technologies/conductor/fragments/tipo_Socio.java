@@ -18,8 +18,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.evans.technologies.conductor.R;
-import com.evans.technologies.conductor.Utils.Adapters.Recycler_tipo_socio;
-import com.evans.technologies.conductor.Utils.ComunicacionesRealTime.updateListenerNotifications;
+import com.evans.technologies.conductor.utils.Adapters.Recycler_tipo_socio;
+import com.evans.technologies.conductor.utils.ComunicacionesRealTime.updateListenerNotifications;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -27,9 +27,9 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.evans.technologies.conductor.Utils.UtilsKt.setClaseActual;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setTipoSocio_init;
-import static com.evans.technologies.conductor.Utils.constantes.AppConstants.SEND_CLAVE_ADAPTER_TIPO_SOCIO;
+import static com.evans.technologies.conductor.utils.UtilsKt.setClaseActual;
+import static com.evans.technologies.conductor.utils.UtilsKt.setTipoSocio_init;
+import static com.evans.technologies.conductor.utils.constantes.AppConstants.SEND_CLAVE_ADAPTER_TIPO_SOCIO;
 
 
 /**

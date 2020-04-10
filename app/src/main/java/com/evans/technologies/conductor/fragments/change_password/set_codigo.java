@@ -17,7 +17,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.evans.technologies.conductor.R;
-import com.evans.technologies.conductor.Retrofit.RetrofitClient;
+import com.evans.technologies.conductor.data.network.service.auth.ClienteRetrofit;
 import com.evans.technologies.conductor.model.Driver;
 
 import butterknife.BindView;
@@ -26,9 +26,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.evans.technologies.conductor.Utils.UtilsKt.getIDrecuperar;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setNavFragment;
-import static com.evans.technologies.conductor.Utils.UtilsKt.settokenrecuperar;
+import static com.evans.technologies.conductor.utils.UtilsKt.getIDrecuperar;
+import static com.evans.technologies.conductor.utils.UtilsKt.setNavFragment;
+import static com.evans.technologies.conductor.utils.UtilsKt.settokenrecuperar;
 import static org.jetbrains.anko.ToastsKt.toast;
 
 /**
@@ -62,7 +62,7 @@ public class set_codigo extends Fragment {
                 code=codigo.getText().toString().trim();
                 if (comprobarcampos()){
                     progressBar.setVisibility(View.GONE);
-                    Call<Driver> sendCorreo= RetrofitClient.getInstance().getApi().sendCodigo_recuperar(getIDrecuperar(navFragment),code);
+                    Call<Driver> sendCorreo= ClienteRetrofit.getInstance().getApi().sendCodigo_recuperar(getIDrecuperar(navFragment),code);
                     sendCorreo.enqueue(new Callback<Driver>() {
                         @Override
                         public void onResponse(Call<Driver> call, Response<Driver> response) {

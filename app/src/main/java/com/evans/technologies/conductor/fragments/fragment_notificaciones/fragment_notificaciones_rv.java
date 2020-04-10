@@ -19,18 +19,12 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.evans.technologies.conductor.R;
-import com.evans.technologies.conductor.Retrofit.RetrofitClient;
-import com.evans.technologies.conductor.Utils.Adapters.adapter_rv_chat;
-import com.evans.technologies.conductor.Utils.Adapters.adapter_rv_notificaciones;
-import com.evans.technologies.conductor.Utils.ComunicacionesRealTime.OnclickItemListener;
+import com.evans.technologies.conductor.data.network.service.auth.ClienteRetrofit;
+import com.evans.technologies.conductor.utils.Adapters.adapter_rv_notificaciones;
+import com.evans.technologies.conductor.utils.ComunicacionesRealTime.OnclickItemListener;
 import com.evans.technologies.conductor.model.chats;
 import com.evans.technologies.conductor.model.infoDriver;
 import com.evans.technologies.conductor.model.notification.notification;
-import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -39,10 +33,9 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
-import static com.evans.technologies.conductor.Utils.UtilsKt.getDriverId_Prefs;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setClaseActual;
+import static com.evans.technologies.conductor.utils.UtilsKt.getDriverId_Prefs;
+import static com.evans.technologies.conductor.utils.UtilsKt.setClaseActual;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,7 +74,7 @@ public class fragment_notificaciones_rv extends Fragment {
             @Override
             public void onRefresh() {
                 // Esto se ejecuta cada vez que se realiza el gesto
-                Call<infoDriver> allNotify= RetrofitClient.getInstance().getApi().getAllNotifys(getDriverId_Prefs(prefs));
+                Call<infoDriver> allNotify= ClienteRetrofit.getInstance().getApi().getAllNotifys(getDriverId_Prefs(prefs));
                 allNotify.enqueue(new Callback<infoDriver>() {
                     @Override
                     public void onResponse(Call<infoDriver> call, Response<infoDriver> response) {
@@ -107,7 +100,7 @@ public class fragment_notificaciones_rv extends Fragment {
 
     public ArrayList<notification> getllamarNotificaciones() {
         Log.e("jsonAll","entro  "+getDriverId_Prefs(prefs));
-        Call<infoDriver> allNotify= RetrofitClient.getInstance().getApi().getAllNotifys(getDriverId_Prefs(prefs));
+        Call<infoDriver> allNotify= ClienteRetrofit.getInstance().getApi().getAllNotifys(getDriverId_Prefs(prefs));
         allNotify.enqueue(new Callback<infoDriver>() {
             @Override
             public void onResponse(Call<infoDriver> call, Response<infoDriver> response) {
@@ -137,7 +130,7 @@ public class fragment_notificaciones_rv extends Fragment {
         return notifications;
     }
     private void notificacionVisto(notification notifica) {
-        Call<infoDriver> change= RetrofitClient.getInstance().getApi().changeStatusNotify(notifica.getMessageID(),true);
+        Call<infoDriver> change= ClienteRetrofit.getInstance().getApi().changeStatusNotify(notifica.getMessageID(),true);
         change.enqueue(new Callback<infoDriver>() {
             @Override
             public void onResponse(Call<infoDriver> call, Response<infoDriver> response) {

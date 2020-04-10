@@ -2,6 +2,7 @@ package com.evans.technologies.conductor.fragments;
 
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,13 +26,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.evans.technologies.conductor.R;
-import com.evans.technologies.conductor.Retrofit.RetrofitClient;
+import com.evans.technologies.conductor.data.network.service.auth.ClienteRetrofit;
 import com.evans.technologies.conductor.model.Driver;
 
 import java.io.File;
@@ -46,13 +46,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
-import static com.evans.technologies.conductor.Utils.UtilsKt.detectar_formato;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getDriverId_Prefs;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getImageRotate;
-import static com.evans.technologies.conductor.Utils.UtilsKt.getPath;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setClaseActual;
-import static com.evans.technologies.conductor.Utils.UtilsKt.setEnvioVocher;
-import static com.evans.technologies.conductor.Utils.UtilsKt.toastLong;
+import static com.evans.technologies.conductor.utils.UtilsKt.detectar_formato;
+import static com.evans.technologies.conductor.utils.UtilsKt.getDriverId_Prefs;
+import static com.evans.technologies.conductor.utils.UtilsKt.getImageRotate;
+import static com.evans.technologies.conductor.utils.UtilsKt.getPath;
+import static com.evans.technologies.conductor.utils.UtilsKt.setClaseActual;
+import static com.evans.technologies.conductor.utils.UtilsKt.setEnvioVocher;
+import static com.evans.technologies.conductor.utils.UtilsKt.toastLong;
 
 
 /**
@@ -209,7 +209,7 @@ public class fragment_recargar_evans extends Fragment implements View.OnClickLis
     }
     private void send_data_img(String idPago) {
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "baucherImg");
-        Call<Driver> retrofit= RetrofitClient.getInstance().getApi()
+        Call<Driver> retrofit= ClienteRetrofit.getInstance().getApi()
                 .insert_voucher(idPago,guardarFotoEnArchivo("baucherImg"),name);
         retrofit.enqueue(new Callback<Driver>() {
             @Override
@@ -238,7 +238,7 @@ public class fragment_recargar_evans extends Fragment implements View.OnClickLis
     }
 
     private void send_txt_datos() {
-        Call<Driver>  enviarData=RetrofitClient.getInstance().getApi()
+        Call<Driver>  enviarData= ClienteRetrofit.getInstance().getApi()
                 .send_data_voucher(getDriverId_Prefs(prefs),edt_fecha.getText().toString().trim(),
                         edt_monto.getText().toString().trim(),edt_serie.getText().toString().trim());
         enviarData.enqueue(new Callback<Driver>() {

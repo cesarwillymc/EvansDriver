@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 import com.evans.technologies.conductor.R
-import com.evans.technologies.conductor.Utils.*
+import com.evans.technologies.conductor.utils.*
 
 /**
  * A simple [Fragment] subclass.
@@ -49,10 +50,14 @@ class TusViajesGratisFragment : Fragment()  {
         var nombrePerfil=vista.findViewById<TextView>(R.id.ftvg_txt_nombre_driver)
 
         //Dar valores a la imagenes
-        val myBitmap = BitmapFactory.decodeFile(getRutaImagen(prefs))
-        Glide.with(context!!).asBitmap().load(getImageRotate(getRutaImagen(prefs!!)!!,myBitmap))
-            .apply(RequestOptions.circleCropTransform())
-            .into(imagendatos)
+        Log.e("bitmaperror",getRutaImagen(prefs!!))
+        if(!getRutaImagen(prefs).equals("nulo")){
+            val myBitmap = BitmapFactory.decodeFile(getRutaImagen(prefs))
+            Glide.with(context!!).asBitmap().load(getImageRotate(getRutaImagen(prefs!!)!!,myBitmap))
+                .apply(RequestOptions.circleCropTransform())
+                .into(imagendatos)
+        }
+
        // var bitmap = BitmapFactory.decodeFile(getRutaImagen(prefs))
       //  imagendatos.setImageBitmap(bitmap)
         nombreApellidos.text= getUserName(prefs)+" "+ getUserSurname(prefs)
