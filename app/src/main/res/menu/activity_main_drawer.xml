@@ -48,9 +48,13 @@
         android:id="@+id/menu_bottom"
         android:checkableBehavior="none">
             <item
-            android:id="@+id/nav_share"
+            android:id="@+id/nav_car"
             android:icon="@drawable/ic_cloud_upload_black_24dp"
             android:title="Mi carro" />
+             <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Compartir" />
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_directions_run_black_24dp"

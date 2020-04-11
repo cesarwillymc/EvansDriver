@@ -604,6 +604,14 @@ fun setEnvioVocher(prefs: SharedPreferences,voucher:Boolean){
 fun getVoucherAceptado(prefs: SharedPreferences): Boolean? {
     return prefs.getBoolean("getVoucherAceptado", false)
 }
+fun setReferido(prefs: SharedPreferences,refirio:Boolean){
+    val editor = prefs.edit()
+    editor.putBoolean("setReferido",refirio)
+    editor.apply()
+}
+fun getReferido(prefs: SharedPreferences): Boolean? {
+    return prefs.getBoolean("setReferido", false)
+}
 fun setVoucherAceptado(prefs: SharedPreferences,voucher:Boolean){
     val editor = prefs.edit()
     editor.putBoolean("getVoucherAceptado",voucher)

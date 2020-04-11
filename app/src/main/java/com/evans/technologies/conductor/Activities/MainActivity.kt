@@ -37,11 +37,8 @@ import com.evans.technologies.conductor.Utils.*
 import com.evans.technologies.conductor.Utils.miui.canDrawOverlayViews
 import com.evans.technologies.conductor.Utils.miui.dialogEmergente
 import com.evans.technologies.conductor.Utils.miui.isXiaomi
-import com.evans.technologies.conductor.fragments.TusViajesGratisFragment
+import com.evans.technologies.conductor.fragments.*
 import com.evans.technologies.conductor.fragments.fragment_notificaciones.fragment_notificaciones_rv
-import com.evans.technologies.conductor.fragments.mapaInicio
-import com.evans.technologies.conductor.fragments.pasos_requeridos
-import com.evans.technologies.conductor.fragments.registrarDatosFragment
 import com.evans.technologies.conductor.model.Driver
 import com.evans.technologies.conductor.model.RegistroInicioSesion
 import com.evans.technologies.conductor.model.config
@@ -189,7 +186,7 @@ class MainActivity : AppCompatActivity(),
         menu.findItem(R.id.nav_ingresos).setEnabled(false)
         menu.findItem(R.id.nav_banca).setEnabled(false)
         if (getTieneInfo(prefs)!!){
-            menu.findItem(R.id.nav_share).setEnabled(false)
+            menu.findItem(R.id.nav_car).setEnabled(false)
         }
 
         if (!isXiaomi()){
@@ -676,10 +673,14 @@ class MainActivity : AppCompatActivity(),
                 mifragment= fragment_notificaciones_rv()
                 fragmentSeleccionado = true
             }
-            R.id.nav_share -> {
+            R.id.nav_car -> {
 
                 mifragment = registrarDatosFragment()
                 fragmentSeleccionado = true
+            }
+            R.id.nav_share->{
+                val dialog= ReferidosDialogFragment()
+                dialog.show(supportFragmentManager,"MainActivity")
             }
             R.id.nav_logout->{
              //   stopService(Intent(this@MainActivity, service_mqtt::class.java))

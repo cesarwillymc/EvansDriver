@@ -132,6 +132,10 @@ interface Api {
     fun getStatusTrip(
         @Path("driverId") driverId:String
     ): Call<infoDriver>
+    @GET("getStatusTrip/{driverId} ")
+    fun putReferido(
+        @Path("driverId") driverId:String
+    ): Call<infoDriver>
     @FormUrlEncoded
     @POST("car/createCar/{Driverid}/")
     fun enviarDatosAdicionales(
