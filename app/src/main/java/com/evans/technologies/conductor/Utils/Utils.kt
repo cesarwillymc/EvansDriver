@@ -278,7 +278,7 @@ fun SharedPreferences.edit(func: SharedPreferences.Editor.() -> Unit){
 }
 
 fun EditText.passwordvalido() =this.text.toString().isNotEmpty()&&
-        this.text.toString().length.compareTo(8)==1
+        this.text.toString().length.compareTo(5)==1
 fun EditText.userValido() = this.text.toString().isNotEmpty()&&
         this.text.toString().contains('@')
 fun Activity.limpiarNotify(){
@@ -596,6 +596,14 @@ fun setTieneNotificacionViaje(dataDriver: SharedPreferences,notificacionActiva:B
 fun getEnvioVocher(prefs: SharedPreferences): Boolean? {
     return prefs.getBoolean("setEnvioVocher", false)
 }
+fun getIsReferred(prefs: SharedPreferences): Boolean? {
+    return prefs.getBoolean("isreferred", false)
+}
+fun setReferido(prefs: SharedPreferences,refirio:Boolean){
+    val editor = prefs.edit()
+    editor.putBoolean("isreferred",refirio)
+    editor.apply()
+}
 fun setEnvioVocher(prefs: SharedPreferences,voucher:Boolean){
     val editor = prefs.edit()
     editor.putBoolean("setEnvioVocher",voucher)
@@ -604,14 +612,7 @@ fun setEnvioVocher(prefs: SharedPreferences,voucher:Boolean){
 fun getVoucherAceptado(prefs: SharedPreferences): Boolean? {
     return prefs.getBoolean("getVoucherAceptado", false)
 }
-fun setReferido(prefs: SharedPreferences,refirio:Boolean){
-    val editor = prefs.edit()
-    editor.putBoolean("setReferido",refirio)
-    editor.apply()
-}
-fun getReferido(prefs: SharedPreferences): Boolean? {
-    return prefs.getBoolean("setReferido", false)
-}
+
 fun setVoucherAceptado(prefs: SharedPreferences,voucher:Boolean){
     val editor = prefs.edit()
     editor.putBoolean("getVoucherAceptado",voucher)

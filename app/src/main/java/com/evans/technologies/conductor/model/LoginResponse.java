@@ -4,7 +4,16 @@ public class LoginResponse {
     public Boolean success;
     public String msg;
     public String message;
-    public Driver driver;
+    public Driver user;
+    private Referido referido;
+
+    public Referido getReferido() {
+        return referido;
+    }
+
+    public void setReferido(Referido referido) {
+        this.referido = referido;
+    }
 
     public String getMessage() {
         return message;
@@ -31,10 +40,10 @@ public class LoginResponse {
     }
 
     public Driver getUser() {
-        return driver;
+        return user;
     }
 
     public void setUser(Driver user) {
-        this.driver = user;
+        this.user = user;
     }
 }

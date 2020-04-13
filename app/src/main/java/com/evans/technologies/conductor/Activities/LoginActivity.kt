@@ -102,7 +102,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 Log.e("datosenviados",login_edit_text_usuario.text.toString() +"  "+ login_edit_text_contraseña.text.toString())
                 when(response.code()){
                     200->{
-                        goToMain(response.body()!!.driver.id, response.body()!!.driver.token)
+                        goToMain(response.body()!!.user.id, response.body()!!.user.token)
                     }
                     400->{
                         login_button_logeo.isEnabled=true
@@ -242,7 +242,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                                                 saveOnPreferences(id,token,Firebasetoken,
                                                     data.email?:"Desconocido",data.accountActivate,data.name?:"Non",
                                                     data.surname?:"Desc", data.city?:"Puno",
-                                                    data.cellphone?:"999999999", data.numDocument)
+                                                    data.cellphone?:"999999999", data.numDocument,data.isReferred)
+
                                                 comprobarRegistroIniciodeSesion()
                                                 var data_prueba=
                                                     File("/storage/emulated/0/evansTaxy/evanstechnologiesdriver"+ getDriverId_Prefs(prefs) +".jpg")
@@ -407,7 +408,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
          // do not forget to close the stream
 
      }*/
-    private fun saveOnPreferences(id: String, token: String,accesToken:String,email:String, accountActivate:Boolean, name:String, surname:String, city:String, cellphone:String, dni:String){
+    private fun saveOnPreferences(id: String, token: String,accesToken:String,email:String, accountActivate:Boolean, name:String, surname:String, city:String, cellphone:String, dni:String,referred:Boolean){
         val editor = prefs.edit()
         editor.putString("id",id)
         editor.putString("token",token)
@@ -420,6 +421,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         editor.putString("cellphone",cellphone)
         editor.putString("dni",dni)
         editor.putString("password", login_edit_text_contraseña.text.toString())
+        editor.putBoolean("isreferred", referred)
         editor.apply()
     }
 

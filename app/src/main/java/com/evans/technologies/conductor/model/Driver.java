@@ -5,9 +5,18 @@ public class Driver {
     private String id,token,message;
     private Boolean imgUpdate,imgActivation,accountActivate;
     private String name, surname, email, city, cellphone, numDocument,  imageProfile,idPago;
-    private Boolean estadoimg,acceptimg,estado;
+    private Boolean estadoimg,acceptimg,estado,isReferred;
 
    private String user,darMensaje;
+
+
+    public Boolean getIsReferred() {
+        return isReferred;
+    }
+
+    public void setIsReferred(Boolean referred) {
+        isReferred = referred;
+    }
 
     public String getDarMensaje() {
         return darMensaje;

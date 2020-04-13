@@ -43,6 +43,7 @@ import com.evans.technologies.conductor.model.Driver
 import com.evans.technologies.conductor.model.RegistroInicioSesion
 import com.evans.technologies.conductor.model.config
 import com.evans.technologies.conductor.model.infoDriver
+import com.evans.technologies.conductor.ui.main.view.referidos.ReferidosDialogFragment
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -452,7 +453,7 @@ class MainActivity : AppCompatActivity(),
         var acountActivate=RetrofitClient.getInstance().api.callAcountActivate(getDriverId_Prefs(prefs)!!)
         acountActivate.enqueue(object : Callback<Driver> {
             override fun onFailure(call: Call<Driver>, t: Throwable) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onResponse(call: Call<Driver>, response: Response<Driver>) {
