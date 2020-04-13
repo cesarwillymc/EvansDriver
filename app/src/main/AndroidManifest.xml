@@ -38,7 +38,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".Activities.recuperar_account" />
+        <activity android:name=".ui.recover.recuperar_account" />
 
         <service android:name=".utils.Service.notification_service" />
 
@@ -56,7 +56,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".Activities.SplashScreen">
+        <activity android:name=".ui.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -66,7 +66,7 @@
         <activity android:name=".ui.auth.signUp.view.RegisterActivity" />
         <activity android:name=".ui.auth.signIn.view.LoginActivity" />
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".ui.main.view.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan"></activity>
     </application>

@@ -3,41 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
-
+    app:startDestination="@id/nav_home">
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.evans.technologies.conductor.Activities.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home">
-
+        android:name="com.evans.technologies.conductor.ui.main.view.home.mapaInicio"
+        android:label="fragment_mapa_inicio"
+        tools:layout="@layout/fragment_mapa_inicio" />
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.evans.technologies.conductor.ui.main.view.profile.Profile"
+        android:label="TusViajesGratisFragment" />
+    <fragment
+        android:id="@+id/nav_documents"
+        android:name="com.evans.technologies.conductor.ui.main.view.registerCar.pasos_requeridos"
+        android:label="fragment_pasos_requeridos"
+        tools:layout="@layout/fragment_pasos_requeridos" >
         <action
-            android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
-            app:destination="@id/nav_home_second" />
+            android:id="@+id/action_pasos_requeridos_to_f_pasos_requeridos"
+            app:destination="@id/f_pasos_requeridos" />
     </fragment>
     <fragment
-        android:id="@+id/nav_home_second"
-        android:name="com.evans.technologies.conductor.Activities.ui.home.HomeSecondFragment"
-        android:label="@string/home_second"
-        tools:layout="@layout/fragment_home_second">
+        android:id="@+id/f_pasos_requeridos"
+        android:name="com.evans.technologies.conductor.ui.main.view.registerCar.f_pasos_requeridos"
+        android:label="fragment_f_pasos_requeridos"
+        tools:layout="@layout/fragment_f_pasos_requeridos" />
+    <fragment
+        android:id="@+id/nav_notificacion"
+        android:name="com.evans.technologies.conductor.ui.main.view.notify.fragment_notificaciones_rv"
+        android:label="fragment_notificaciones_rv"
+        tools:layout="@layout/fragment_notificaciones_rv" >
         <action
-            android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
-            app:destination="@id/nav_home" />
-
-        <argument
-            android:name="myArg"
-            app:argType="string" />
+            android:id="@+id/action_fragment_notificaciones_rv_to_fragment_notificaciones_cuerpo"
+            app:destination="@id/fragment_notificaciones_cuerpo" />
     </fragment>
-
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.evans.technologies.conductor.Activities.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
+        android:id="@+id/fragment_notificaciones_cuerpo"
+        android:name="com.evans.technologies.conductor.ui.main.view.notify.fragment_notificaciones_cuerpo"
+        android:label="fragment_notificaciones_cuerpo"
+        tools:layout="@layout/fragment_notificaciones_cuerpo" />
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.evans.technologies.conductor.Activities.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_info_car"
+        android:name="com.evans.technologies.conductor.ui.main.view.registerCar.registrarDatosFragment"
+        android:label="fragment_registrar_datos"
+        tools:layout="@layout/fragment_registrar_datos" />
 </navigation>

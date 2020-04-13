@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.fragment_recargar_evans">
+    tools:context=".ui.main.view.recarga.fragment_recargar_evans">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_auth_nav"
+    app:startDestination="@id/correo">
+
+    <fragment
+        android:id="@+id/correo"
+        android:name="com.evans.technologies.conductor.ui.recover.recoverPass.correo"
+        android:label="fragment_correo"
+        tools:layout="@layout/fragment_correo" >
+        <action
+            android:id="@+id/action_correo_to_set_codigo"
+            app:destination="@id/set_codigo" />
+    </fragment>
+    <fragment
+        android:id="@+id/set_codigo"
+        android:name="com.evans.technologies.conductor.ui.recover.recoverPass.set_codigo"
+        android:label="fragment_set_codigo"
+        tools:layout="@layout/fragment_set_codigo" >
+        <action
+            android:id="@+id/action_set_codigo_to_changepassword"
+            app:destination="@id/changepassword" />
+    </fragment>
+    <fragment
+        android:id="@+id/changepassword"
+        android:name="com.evans.technologies.conductor.ui.recover.recoverPass.changepassword"
+        android:label="fragment_changepassword"
+        tools:layout="@layout/fragment_changepassword" />
+</navigation>

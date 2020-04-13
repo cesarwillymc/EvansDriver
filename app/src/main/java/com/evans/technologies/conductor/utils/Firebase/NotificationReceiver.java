@@ -9,7 +9,7 @@ import android.util.Log;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 
-import com.evans.technologies.conductor.Activities.MainActivity;
+import com.evans.technologies.conductor.ui.main.view.MainActivity;
 
 import static com.evans.technologies.conductor.utils.UtilsKt.getClaseMapaInicio;
 import static com.evans.technologies.conductor.utils.UtilsKt.getPrimerplano;

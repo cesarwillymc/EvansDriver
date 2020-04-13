@@ -11,12 +11,12 @@
 
         <item
 
-            android:id="@+id/nav_travel"
+            android:id="@+id/nav_home"
             android:icon="@android:drawable/ic_dialog_map"
 
             android:title="!Buscar pasajeros¡" />
         <item
-            android:id="@+id/nav_cuenta"
+            android:id="@+id/nav_profile"
             android:icon="@drawable/perfil"
             android:title="Mi perfil" />
         <item
@@ -32,7 +32,7 @@
             android:icon="@drawable/ic_menu_manage"
             android:title="Configuración importante" />
         <item
-            android:id="@+id/nav_help"
+            android:id="@+id/nav_documents"
             android:title="Mis documentos"
             android:icon="@drawable/iconayuda"
             />
@@ -48,7 +48,7 @@
         android:id="@+id/menu_bottom"
         android:checkableBehavior="none">
             <item
-            android:id="@+id/nav_share"
+            android:id="@+id/nav_info_car"
             android:icon="@drawable/ic_cloud_upload_black_24dp"
             android:title="Mi carro" />
             <item

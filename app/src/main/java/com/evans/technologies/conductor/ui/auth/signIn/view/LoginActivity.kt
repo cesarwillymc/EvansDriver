@@ -1,16 +1,14 @@
 package com.evans.technologies.conductor.ui.auth.signIn.view
 
-import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
-import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.evans.technologies.conductor.ui.auth.signUp.view.RegisterActivity
-import com.evans.technologies.conductor.Activities.recuperar_account
+import com.evans.technologies.conductor.ui.recover.recuperar_account
 import com.evans.technologies.conductor.R
 import com.evans.technologies.conductor.base.BaseActivity
 import com.evans.technologies.conductor.data.remote.auth.signin.RepositoryAuthImpl

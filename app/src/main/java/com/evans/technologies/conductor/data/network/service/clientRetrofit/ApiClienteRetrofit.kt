@@ -3,6 +3,8 @@
 package com.evans.technologies.conductor.data.network.service.auth
 
 
+import com.evans.technologies.conductor.data.local.entities.StatusTrip
+import com.evans.technologies.conductor.data.remote.request.DriverToUser
 import com.evans.technologies.conductor.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -94,12 +96,7 @@ interface ApiClienteRetrofit {
     @POST("driver/sendNotification/{driverId} ")
     fun driverTOuser(
         @Path("driverId") driverId:String,
-        @Field("userId") userId:String,
-        @Field("title") title:String,
-        @Field("message") message:String,
-        @Field("response") response:String,
-        @Field("chatId") chatId:String,
-        @Field("tripId") tripId:String
+        @Body driverToUser: DriverToUser
     ): Call<Driver>
     @FormUrlEncoded
     @PUT("driver/aceptedNotification/{Driverid} ")
@@ -113,10 +110,7 @@ interface ApiClienteRetrofit {
     @PUT("statusTrip/{tripId} ")
     fun puStatusTrip(
         @Path("tripId") Driverid:String,
-        @Field("tripCancell") tripCancell:Boolean,
-        @Field("tripAccepted") tripAccepted:Boolean,
-        @Field("tripInitiated") tripInitiated:Boolean,
-        @Field("tripFinalized") tripFinalized:Boolean
+        @Body statusTrip: StatusTrip
 
     ): Call<Driver>
 

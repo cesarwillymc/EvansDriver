@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.recuperar_account">
+    tools:context=".ui.recover.recuperar_account">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
@@ -21,10 +21,12 @@
             app:srcCompat="@drawable/evanswhite"/>
     </androidx.appcompat.widget.Toolbar>
 
-    <FrameLayout
+    <fragment
         android:id="@+id/recuperar_frag"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/my_toolbar"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:navGraph="@navigation/mobile_auth_nav"
         app:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
 </RelativeLayout>

@@ -4,6 +4,7 @@ object Constants {
     //Api Url
     const val BASE_URL_API="https://api-rest-evans.herokuapp.com/api/"
     const val BASE_URL_AMAZON_IMG="https://evans-img.s3.us-east-2.amazonaws.com/"
+    const val ACCESS_TOKEN_MAPBOX="sk.eyJ1Ijoic3VwcG9ydGV2YW5zIiwiYSI6ImNrNGcyM2JnYzB1aXozbW83cWhqZ2l0enMifQ.6qXlLzej2U7OXyRAmX7t0w"
     //Path Files
     const val APP_SETTINGS_PATH_PHOTOS="/storage/emulated/0/evansTaxy/"
 

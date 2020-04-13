@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="10dp"
-    tools:context=".fragments.fragment_pasos_requeridos.f_pasos_requeridos">
+    tools:context=".ui.main.view.registerCar.f_pasos_requeridos">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
