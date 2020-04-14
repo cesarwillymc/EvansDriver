@@ -385,7 +385,7 @@ class MainActivity : AppCompatActivity(),
                         try{
                             val dato= p0.getValue(infoDriver::class.java)
                             setApiWebVersion(prefs,dato!!.version+"")
-                            if (!(dato!!.version.equals(getVersionApp()))){
+                            if ((dato.version.toInt()>(getVersionApp().toInt()))){
                                 if (getEstadoView(dataDriver)!! <4){
                                     getViewUpdateVersion(this@MainActivity)
                                 }

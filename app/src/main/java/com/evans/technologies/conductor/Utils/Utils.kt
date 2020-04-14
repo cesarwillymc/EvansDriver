@@ -330,6 +330,14 @@ fun setClassBackFragment(prefs: SharedPreferences,direction:String){
 fun getsetClassBackFragmentToString(prefs: SharedPreferences): String? {
     return prefs.getString("ClassBackFragment", "a")
 }
+fun setImgUrlProfile(prefs: SharedPreferences,url:String){
+    val editor = prefs.edit()
+    editor.putString("imgurl",url)
+    editor.apply()
+}
+fun getImgUrlProfile(prefs: SharedPreferences): String? {
+    return prefs.getString("imgurl", "")
+}
 fun getClassBackFragment(prefs: SharedPreferences): Fragment{
     when(prefs.getString("ClassBackFragment", "")){
 

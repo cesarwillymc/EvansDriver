@@ -52,6 +52,7 @@ import static android.app.Activity.RESULT_OK;
 import static com.evans.technologies.conductor.Utils.UtilsKt.detectar_formato;
 import static com.evans.technologies.conductor.Utils.UtilsKt.getDriverId_Prefs;
 import static com.evans.technologies.conductor.Utils.UtilsKt.getImageRotate;
+import static com.evans.technologies.conductor.Utils.UtilsKt.getImgUrlProfile;
 import static com.evans.technologies.conductor.Utils.UtilsKt.getPath;
 import static com.evans.technologies.conductor.Utils.UtilsKt.setClaseActual;
 import static com.evans.technologies.conductor.Utils.UtilsKt.setRutaImagen;
@@ -105,7 +106,9 @@ public class registrarDatosFragment extends Fragment implements View.OnClickList
         ButterKnife.bind(this,view);
         register_button_registrar_datos_adicionales.setOnClickListener(this);
         btnEditarFoto.setOnClickListener(this);
-
+        if(!getImgUrlProfile(prefs).equals("")){
+            view.findViewById(R.id.frd_linear).setVisibility(View.GONE);
+        }
         return  view;
 
     }
@@ -147,12 +150,16 @@ public class registrarDatosFragment extends Fragment implements View.OnClickList
                 register_button_registrar_datos_adicionales.setEnabled(false);
 
                 if (comprobarDatosnoNulos()){
-
-                    if(file!=null) {
-                        //  progressBar.setVisibility(View.VISIBLE);
-                        guardarFotoEnArchivo();
+                    if(getImgUrlProfile(prefs).equals("")){
+                        if(file!=null) {
+                            //  progressBar.setVisibility(View.VISIBLE);
+                            guardarFotoEnArchivo();
+                        }else {
+                            Toast.makeText(getActivity(),"Para continuar, carga alguna foto.",Toast.LENGTH_SHORT ).show();
+                        }
                     }else {
-                        Toast.makeText(getActivity(),"Para continuar, carga alguna foto.",Toast.LENGTH_SHORT ).show();
+
+                        subir_info();
                     }
 
                 }else{
@@ -253,6 +260,9 @@ public class registrarDatosFragment extends Fragment implements View.OnClickList
             @Override
             public void onResponse(Call<Driver> call, Response<Driver> response) {
                 if (response.isSuccessful()){
+                    if (file.exists()) {
+                        setRutaImagen(prefs,file.getPath());
+                    }
                     Log.e("subir_imagen",response.code()+""+getDriverId_Prefs(prefs));
                     subir_info();
 
@@ -278,17 +288,24 @@ public class registrarDatosFragment extends Fragment implements View.OnClickList
     }
 
     public void subir_info(){
+        final ProgressDialog progressDoalog;
+        progressDoalog = new ProgressDialog(getContext());
+        progressDoalog.setMax(100);
+        progressDoalog.setMessage("Cargando...");
+        progressDoalog.setTitle("Subiendo Datos");
+        progressDoalog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        // show it
+        progressDoalog.show();
         Call<Driver> llamada= RetrofitClient.getInstance().getApi()
                 .enviarDatosAdicionales(getDriverId_Prefs(prefs),brandCar,modelCar,colorCar,yearCar,licenseCar,licenseCategory);
         llamada.enqueue(new Callback<Driver>() {
             @Override
             public void onResponse(Call<Driver> call, Response<Driver> response) {
+                progressDoalog.dismiss();
                 if (response.isSuccessful()){
                     setVehiculoInfo(prefs,brandCar,colorCar,
                             modelCar,licenseCar);
-                    if (file.exists()) {
-                        setRutaImagen(prefs,file.getPath());
-                    }
+
                     // progressBar.setVisibility(View.GONE);
                     setTieneInfo(prefs,true);
                     register_button_registrar_datos_adicionales.setEnabled(true);
@@ -313,6 +330,7 @@ public class registrarDatosFragment extends Fragment implements View.OnClickList
             @Override
             public void onFailure(Call<Driver> call, Throwable t) {
                 //progressBar.setVisibility(View.GONE);
+                progressDoalog.dismiss();
                 toastLong(getActivity(),"Error con la Base de datos");
                 register_button_registrar_datos_adicionales.setEnabled(true);
             }

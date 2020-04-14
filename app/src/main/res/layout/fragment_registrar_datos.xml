@@ -29,7 +29,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
+                android:id="@+id/frd_linear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -44,10 +46,10 @@
 
                 <ImageButton
 
-                    android:layout_gravity="top"
                     android:id="@+id/btnEditarFoto"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:layout_gravity="top"
                     android:src="@drawable/ic_edit_black_24dp" />
 
             </LinearLayout>

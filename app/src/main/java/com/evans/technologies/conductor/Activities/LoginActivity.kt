@@ -193,8 +193,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             .api.getInfoDriver(id)
         getInfoDriver.enqueue(object : Callback<infoDriver> {
             override fun onResponse(call: Call<infoDriver>, response: Response<infoDriver>) {
-                if (response.isSuccessful()) {
-                    if (response.body()!!.information.driverImg!=null&&!(response.body()!!.information.driverImg.equals("null"))){
+                if (response.isSuccessful) {
+                    if (response.body()!!.information.licenseCar!=null&&!(response.body()!!.information.licenseCar.contains("null"))){
                         setTieneInfo(prefs,true)
                         setVehiculoInfo(prefs,response.body()!!.information.brandCar,response.body()!!.information.colorCar,
                             response.body()!!.information.modelCar,response.body()!!.information.licenseCar)
@@ -254,8 +254,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                                                     setRutaImagen(prefs,data_prueba.path)
                                                     startActivity<MainActivity>("tokensend" to token)
                                                     finish()
-                                                }else if (data.imageProfile!=null||!(data.imageProfile.equals("nulo"))){
-
+                                                }else if (data.imageProfile!=null||!(data.imageProfile.contains("null"))){
+                                                    setImgUrlProfile(prefs,"https://evans-img.s3.us-east-2.amazonaws.com/"+data.imageProfile)
                                                     guardar_foto("https://evans-img.s3.us-east-2.amazonaws.com/"+data.imageProfile)
                                                 }
                                                 else{
