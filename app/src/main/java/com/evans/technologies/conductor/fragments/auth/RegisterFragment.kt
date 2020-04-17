@@ -1,17 +1,24 @@
-package com.evans.technologies.conductor.Activities
+package com.evans.technologies.conductor.fragments.auth
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
 import android.util.Patterns
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.evans.technologies.conductor.R
 import com.evans.technologies.conductor.Retrofit.RetrofitClient
+import com.evans.technologies.conductor.Utils.getCorreoNavFragment
 import com.evans.technologies.conductor.model.RegisterResponse
 import com.evans.technologies.conductor.Utils.toastLong
 import kotlinx.android.synthetic.main.activity_register.*
@@ -19,25 +26,28 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RegisterActivity : AppCompatActivity(), View.OnClickListener {
+class RegisterFragment : Fragment(), View.OnClickListener {
+    private lateinit var navFragment: SharedPreferences
+    lateinit var code:String
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.activity_register, container, false)
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navFragment = activity!!.getSharedPreferences("navFragment", Context.MODE_PRIVATE)
         txt_view_terminos.setText(
             Html.fromHtml("Al continuar, confirmo que lei y acepto los " +
                     "<a href='www.google.com.pe'>Terminos y condiciones</a>"+" y la "+"<a href='www.google.com.pe'>Politica de privacidad</a>"))
         txt_view_terminos.setOnClickListener(this)
+        register_button_registrar.setOnClickListener(this@RegisterFragment)
+        register_edit_text_correo.setText(getCorreoNavFragment(navFragment)!!.toString())
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        register_image_view_atras.setOnClickListener(this@RegisterActivity)
-        register_button_registrar.setOnClickListener(this@RegisterActivity)
-
-    }
 
     ////registro de usuarios condiciones
 
@@ -51,6 +61,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         val city = register_edit_text_ciudad.text.toString().trim()
         val password = register_edit_text_contraseña.text.toString().trim()
         val passwordconfirm = register_edit_text_verificar_contraseña.text.toString().trim()
+        code=register_code_referencial.text.toString().trim()
 
         if (name.isEmpty())
         {
@@ -124,43 +135,43 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                     200->{
                         register_progressbar.visibility= View.GONE
                         actions()
-                        toastLong("Se registro exitosamente")
+                        activity!!.toastLong("Se registro exitosamente")
                     }
                     400->{
                         register_progressbar.visibility= View.GONE
-                        toastLong("Contraseña no coincide")
+                        activity!!.toastLong("Contraseña no coincide")
                     }
                     401->{
                         register_progressbar.visibility= View.GONE
-                        toastLong("El email ya esta en uso")
+                        activity!!.toastLong("El email ya esta en uso")
                     }
                     402->{
                         register_progressbar.visibility= View.GONE
-                        toastLong("El nombre no debe exeder de los 40 caracteres")
+                        activity!!.toastLong("El nombre no debe exeder de los 40 caracteres")
                     }
                     403->{
                         register_progressbar.visibility= View.GONE
-                        toastLong("Los apellidos no debe exeder de los 40 caracteres")
+                        activity!!.toastLong("Los apellidos no debe exeder de los 40 caracteres")
                     }
                     404->{
                         register_progressbar.visibility= View.GONE
-                        toastLong("E-mail no debe exeder de los 40 caracteres o no es un e-mail valido")
+                        activity!!.toastLong("E-mail no debe exeder de los 40 caracteres o no es un e-mail valido")
                     }
                     405->{
                         register_progressbar.visibility= View.GONE
-                        toastLong("El numero celular son solo digitos")
+                        activity!!.toastLong("El numero celular son solo digitos")
                     }
                     406->{
                         register_progressbar.visibility= View.GONE
-                        toastLong("El numero celular son solo digitos")
+                        activity!!.toastLong("El numero celular son solo digitos")
                     }
                     407->{
                         register_progressbar.visibility= View.GONE
-                        toastLong("El numero dni son solo digitos")
+                        activity!!.toastLong("El numero dni son solo digitos")
                     }
                     500->{
                         register_progressbar.visibility= View.GONE
-                        toastLong("Error al registrarse")
+                        activity!!.toastLong("Error al registrarse")
                     }
 
                 }
@@ -168,7 +179,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
             }
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                toastLong("Revise su conexion a internet")
+                activity!!.toastLong("Revise su conexion a internet")
                 register_progressbar.visibility= View.GONE
                 register_button_registrar.isEnabled=true
 
@@ -180,18 +191,17 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         when(v.id){
             R.id.register_button_registrar-> {
                 try{
-                    var view = this.getCurrentFocus()
+                    var view = activity!!.currentFocus
                     view!!.clearFocus()
                     if (view != null) {
-                        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                        imm.hideSoftInputFromWindow(view!!.getWindowToken(), 0)
+                        val imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        imm.hideSoftInputFromWindow(view!!.windowToken, 0)
                     }
                 }catch (e:Exception){
 
                 }
                 userSignUp()
             }
-            R.id.register_image_view_atras -> onBackPressed()
             R.id.txt_view_terminos->{
                 val url = "http://www.proevans.com/es/general-terms-of-use"
                 val i = Intent(Intent.ACTION_VIEW)
@@ -203,8 +213,27 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun actions(){
-        register_button_registrar.isEnabled=true
-        finish()
-        startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+        if (code.isEmpty()){
+            findNavController().navigate(R.id.action_registerFragment_to_inicioFragment)
+        }else{
+            val statusTrip= RetrofitClient.getInstance().api.putReferido(getCorreoNavFragment(navFragment)!!.toString(),code)
+            statusTrip.enqueue(object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if ( response.isSuccessful){
+                        Toast.makeText(context,"Refirio correctamente..",Toast.LENGTH_LONG).show()
+                    }else{
+                        Toast.makeText(context,"No se pudo referir, revise su conexion ${response.code()}",Toast.LENGTH_LONG).show()
+                    }
+                    findNavController().navigate(R.id.action_registerFragment_to_inicioFragment)
+
+                }
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.e("register", t.message +"  "+id+"  "+code)
+                    Toast.makeText(context,"No se pudo referir, revise su conexion",Toast.LENGTH_LONG).show()
+                    findNavController().navigate(R.id.action_registerFragment_to_inicioFragment)
+                }
+
+            })
+        }
     }
 }

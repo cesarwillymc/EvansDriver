@@ -173,6 +173,14 @@ fun setTieneInfo(dataDriver: SharedPreferences,info:Boolean){
 fun getTieneInfo(prefs: SharedPreferences): Boolean? {
     return prefs.getBoolean("tieneinfoDriver", false)
 }
+fun getCorreoNavFragment(prefs: SharedPreferences): String? {
+    return prefs.getString("setCorreoNavFragment", "")
+}
+fun setCorreoNavFragment(prefs: SharedPreferences,refirio:String){
+    val editor = prefs.edit()
+    editor.putString("setCorreoNavFragment",refirio)
+    editor.apply()
+}
 fun setRutaImagen(prefs: SharedPreferences, ruta:String) {
     val editor = prefs.edit()
     editor.putString("rutaImg",ruta)

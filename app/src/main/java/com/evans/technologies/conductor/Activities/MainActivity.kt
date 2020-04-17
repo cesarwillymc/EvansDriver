@@ -38,6 +38,7 @@ import com.evans.technologies.conductor.Utils.miui.canDrawOverlayViews
 import com.evans.technologies.conductor.Utils.miui.dialogEmergente
 import com.evans.technologies.conductor.Utils.miui.isXiaomi
 import com.evans.technologies.conductor.fragments.*
+import com.evans.technologies.conductor.fragments.auth.LoginFragment
 import com.evans.technologies.conductor.fragments.fragment_notificaciones.fragment_notificaciones_rv
 import com.evans.technologies.conductor.model.Driver
 import com.evans.technologies.conductor.model.RegistroInicioSesion
@@ -733,7 +734,7 @@ class MainActivity : AppCompatActivity(),
 
     private fun logOut(){
         setStatusSwitch(prefs,false)
-        val intent = Intent(this, LoginActivity::class.java)
+        val intent = Intent(this, LoginFragment::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }

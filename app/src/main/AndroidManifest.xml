@@ -10,21 +10,23 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name=".Utils.Service.ArchLifecycleApp"
         android:allowBackup="true"
+        android:configChanges="keyboardHidden|orientation|screenSize"
         android:icon="@mipmap/ic_launcher_evans"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_evans"
         android:supportsRtl="true"
-
         android:theme="@style/AppTheme"
-        android:configChanges="keyboardHidden|orientation|screenSize"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Activities.InicioActivity"></activity>
+
         <service
             android:name=".Utils.Firebase.MyFirebaseMessagingService"
             android:exported="false">
@@ -32,10 +34,10 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <activity android:name=".Activities.recuperar_account"></activity>
+
+        <activity android:name=".Activities.recuperar_account" />
 
         <service android:name=".Utils.Service.notification_service" />
-
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -58,14 +60,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.RegisterActivity" />
-        <activity android:name=".Activities.LoginActivity" />
-
-        <activity android:name=".Activities.MainActivity"
+        <activity android:name=".fragments.auth.RegisterFragment" />
+        <activity android:name=".fragments.auth.LoginFragment" />
+        <activity
+            android:name=".Activities.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.evans.technologies.conductor.Activities
+package com.evans.technologies.conductor.fragments.auth
 
 import android.Manifest
 import android.content.Context
@@ -9,12 +9,17 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
+import com.evans.technologies.conductor.Activities.MainActivity
+import com.evans.technologies.conductor.Activities.recuperar_account
 import com.evans.technologies.conductor.R
 import com.evans.technologies.conductor.Retrofit.RetrofitClient
 import com.evans.technologies.conductor.model.Driver
@@ -25,26 +30,37 @@ import com.evans.technologies.conductor.Utils.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_login.*
-import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.support.v4.startActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 
-class LoginActivity : AppCompatActivity(), View.OnClickListener {
+class LoginFragment : Fragment(), View.OnClickListener {
 
     private lateinit var prefs: SharedPreferences
     private lateinit var dataDriver: SharedPreferences
     private lateinit var navFragment: SharedPreferences
     lateinit var data: Driver
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        navFragment= getSharedPreferences("navFragment", Context.MODE_PRIVATE)
-        navFragment.edit().clear().apply()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.activity_login, container, false)
+    }
 
-        setContentView(R.layout.activity_login)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        prefs = activity!!.getSharedPreferences("Preferences", Context.MODE_PRIVATE)
+        prefs.edit().clear().apply()
+        dataDriver = activity!!.getSharedPreferences("datadriver", Context.MODE_PRIVATE)
+        dataDriver.edit().clear().apply()
+        setCredentialIfExist()
+        navFragment = activity!!.getSharedPreferences("navFragment", Context.MODE_PRIVATE)
+        navFragment.edit().clear().apply()
         ActivityCompat.requestPermissions(
-            this,
+            activity!!,
             arrayOf(
 
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -61,11 +77,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onStart() {
         super.onStart()
-        prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE)
-        prefs.edit().clear().apply()
-        dataDriver = getSharedPreferences("datadriver", Context.MODE_PRIVATE)
-        dataDriver.edit().clear().apply()
-        setCredentialIfExist()
+
     }
 
     private fun userLogin() {
@@ -108,19 +120,19 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         login_button_logeo.isEnabled=true
                         login_button_registrar.isEnabled=true
                         login_progressbar.visibility= View.GONE
-                        toastLong("Email o contraseña incorrectos")
+                        activity!!.toastLong("Email o contraseña incorrectos")
                     }
                     500->{
                         login_button_logeo.isEnabled=true
                         login_button_registrar.isEnabled=true
                         login_progressbar.visibility= View.GONE
-                        toastLong("Error al realizar la petición.")
+                        activity!!.toastLong("Error al realizar la petición.")
                     }
                     404->{
                         login_button_logeo.isEnabled=true
                         login_button_registrar.isEnabled=true
                         login_progressbar.visibility= View.GONE
-                        toastLong("El usuario no existe.")
+                        activity!!.toastLong("El usuario no existe.")
                     }
                 }
 
@@ -130,7 +142,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 login_button_logeo.isEnabled=true
                 login_button_registrar.isEnabled=true
                 login_progressbar.visibility= View.GONE
-                toastLong("Revise su conexion a internet")
+                activity!!.toastLong("Revise su conexion a internet")
             }
         })
     }
@@ -138,18 +150,19 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         when(v.id){
             R.id.login_button_registrar -> {
-                login_button_registrar.isEnabled=false
-                startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
-                login_button_registrar.isEnabled=true
+                findNavController().navigate(R.id.action_loginFragment_to_correo)
+//                login_button_registrar.isEnabled=false
+//                startActivity(Intent(activity!!, RegisterFragment::class.java))
+//                login_button_registrar.isEnabled=true
 
             }
             R.id.login_button_logeo -> {
                 try{
-                    var view = this.getCurrentFocus()
+                    var view = activity!!.currentFocus
                     view!!.clearFocus()
                     if (view != null) {
-                        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                        imm.hideSoftInputFromWindow(view!!.getWindowToken(), 0)
+                        val imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        imm.hideSoftInputFromWindow(view!!.windowToken, 0)
                     }
                 }catch (e :Exception){
 
@@ -158,7 +171,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 userLogin()
             }
             R.id.al_txt_olvidaste->{
-                startActivity(Intent(this,recuperar_account::class.java))
+                findNavController().navigate(R.id.action_loginFragment_to_correo)
+//                startActivity(Intent(activity!!,
+//                    recuperar_account::class.java))
             }
         }
     }
@@ -168,7 +183,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             .getDataInicioSesion(getDriverId_Prefs(prefs)!!)
         llamada.enqueue(object : Callback<RegistroInicioSesion> {
             override fun onFailure(call: Call<RegistroInicioSesion>, t: Throwable) {
-                toastLong("Revise su conexion a internet")
+                activity!!.toastLong("Revise su conexion a internet")
             }
 
             override fun onResponse(
@@ -208,7 +223,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onFailure(call: Call<infoDriver>, t: Throwable) {
-                toastLong("Revise su conexion a internet")
+                activity!!.toastLong("Revise su conexion a internet")
             }
         })
         val getInfo=RetrofitClient.getInstance()
@@ -218,7 +233,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 login_progressbar.visibility= View.GONE
                 login_button_logeo.isEnabled=true
                 login_button_registrar.isEnabled=true
-                toastLong("Revise su conexion a internet")
+                activity!!.toastLong("Revise su conexion a internet")
             }
 
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
@@ -252,8 +267,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                                                     login_button_registrar.isEnabled=true
                                                     login_progressbar.visibility= View.GONE
                                                     setRutaImagen(prefs,data_prueba.path)
-                                                    startActivity<MainActivity>("tokensend" to token)
-                                                    finish()
+                                                    startActivity<MainActivity>()
+                                                    activity!!.finish()
                                                 }else if (data.imageProfile!=null||!(data.imageProfile.contains("null"))){
                                                     setImgUrlProfile(prefs,"https://evans-img.s3.us-east-2.amazonaws.com/"+data.imageProfile)
                                                     guardar_foto("https://evans-img.s3.us-east-2.amazonaws.com/"+data.imageProfile)
@@ -263,7 +278,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                                                     login_button_registrar.isEnabled=true
                                                     login_progressbar.visibility= View.GONE
                                                     startActivity<MainActivity>("tokensend" to token)
-                                                    finish()
+                                                    activity!!.finish()
                                                 }
 
 
@@ -278,7 +293,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                                             login_button_logeo.isEnabled=true
                                             login_button_registrar.isEnabled=true
                                             login_progressbar.visibility= View.GONE
-                                            toastLong("Revise su conexion a internet")
+                                            activity!!.toastLong("Revise su conexion a internet")
                                         }
                                     })
 
@@ -286,7 +301,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                                     login_button_logeo.isEnabled=true
                                     login_button_registrar.isEnabled=true
                                     login_progressbar.visibility= View.GONE
-                                    toastLong("Error al obtener Instancia ${task.result}")
+                                    activity!!.toastLong("Error al obtener Instancia ${task.result}")
                                     Log.e("Hola", "${task.result} getInstanceId failed ${task.exception}")
                                 }
                             }
@@ -295,7 +310,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     login_button_logeo.isEnabled=true
                     login_button_registrar.isEnabled=true
                     login_progressbar.visibility= View.GONE
-                    toastLong("Error: "+ response.code())
+                    activity!!.toastLong("Error: "+ response.code())
                     return
                 }
             }
@@ -318,7 +333,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
     fun guardar_foto(url:String){
         Log.e("LifecycleObserver","entro "+url)
-        Glide.with(application)
+        Glide.with(activity!!)
             .asBitmap()
             .load(url)
             .into(object : SimpleTarget<Bitmap>(100, 100) {
@@ -341,7 +356,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     login_button_registrar.isEnabled=true
                     login_progressbar.visibility= View.GONE
                     startActivity<MainActivity>()
-                    finish()
+                    activity!!.finish()
                 }
             })
 

@@ -11,6 +11,17 @@ import retrofit2.http.*
 
 interface Api {
     @FormUrlEncoded
+    @POST("sendEmail")
+    fun sendEmail(
+        @Field("email") email: String
+    ): Call<Driver>
+    @FormUrlEncoded
+    @POST("validateEmail")
+    fun validateEmail(
+        @Field("email") email: String,
+        @Field("code") code: String
+    ): Call<Driver>
+    @FormUrlEncoded
     @POST("driver/forgot")
     fun sendCorreo_recuperar(
         @Field("email") email: String
@@ -21,6 +32,12 @@ interface Api {
         @Field("id") id:String,
         @Field("token") token: String
     ): Call<Driver>
+    @FormUrlEncoded
+    @POST("user/validate/confirm")
+    fun validarCode_validate(
+        @Field("id") id:String,
+        @Field("token") token:String
+    ): Call<LoginResponse>
     @FormUrlEncoded
     @POST("driver/reset/change/{id}")
     fun sendContraseña_recuperar(
