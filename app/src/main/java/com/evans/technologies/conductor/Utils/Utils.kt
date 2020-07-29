@@ -665,6 +665,10 @@ fun getestaFragmentChat(prefs: SharedPreferences):Boolean{
 //    }
 //    return false
 //}
+
+
+//sk.eyJ1Ijoic3VwcG9ydGV2YW5zIiwiY|AAAAAAA|SI6ImNrNGcyM2JnYzB1aXozbW83cWhqZ2l0enMifQ.6qXlLzej2U7OXyRAmX7t0w MAPBOX
+//AIzaSyD7kwgqDzGW8voiXP7gAbxaKnGY_F|AAAAAAA|r4Cng api google key
 fun setStatusService_active(prefs: SharedPreferences,status:Boolean){
     val editor = prefs.edit()
     editor.putBoolean("setStatusService_active",status)
